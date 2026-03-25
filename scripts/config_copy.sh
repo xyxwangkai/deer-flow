@@ -20,4 +20,6 @@ create_symlink_if_not_exists "../../project_env/deer-flow/frontend/.env" "fronte
 
 cp -r ../project_env/deer-flow/docker/nginx/nginx.local.conf docker/nginx/nginx.local.conf
 
+create_symlink_if_not_exists "../../project_env/deer-flow/skills/custom" "skills/custom"
+
 echo "符号链接创建完成"
