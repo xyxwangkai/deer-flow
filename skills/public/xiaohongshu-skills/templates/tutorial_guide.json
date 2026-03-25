@@ -1,0 +1,223 @@
+{
+  "id": "tutorial_guide",
+  "name": "教程指南标准化发布流程",
+  "description": "用于发布软件教程、技能学习、生活技巧等教学类小红书内容",
+  "version": "1.0",
+  "created_date": "2026-03-12",
+  "last_updated": "2026-03-12",
+  "author": "DeerFlow 2.0",
+  "status": "ready",
+  
+  "workflow_steps": [
+    {
+      "step": 1,
+      "name": "教程主题确定",
+      "description": "确定教程主题、目标受众和难度级别",
+      "actions": [
+        "明确教程要解决的问题",
+        "确定目标受众（新手/进阶/专业）",
+        "设定教程难度级别",
+        "规划教程覆盖的知识点"
+      ],
+      "outputs": [
+        "教程大纲.json",
+        "受众分析.md"
+      ],
+      "auto_decision_rules": [
+        "根据关键词自动判断教程类型",
+        "根据受众调整教学深度和术语使用"
+      ]
+    },
+    {
+      "step": 2,
+      "name": "内容结构设计",
+      "description": "设计教程的步骤化结构",
+      "actions": [
+        "将教程分解为3-5个核心步骤",
+        "每个步骤设计明确的学习目标",
+        "规划示例和练习环节",
+        "设计常见问题解答"
+      ],
+      "outputs": [
+        "步骤分解表.json",
+        "学习目标清单.md"
+      ],
+      "auto_decision_rules": [
+        "复杂教程自动拆分为系列内容",
+        "优先教学最实用、最高频的功能"
+      ]
+    },
+    {
+      "step": 3,
+      "name": "教程内容撰写",
+      "description": "撰写步骤清晰的教程正文",
+      "actions": [
+        "撰写吸引人的标题（痛点+解决方案）",
+        "正文结构：问题引入→步骤详解→效果展示→注意事项",
+        "使用数字标记步骤（1️⃣ 2️⃣ 3️⃣）",
+        "添加提示和警告标记"
+      ],
+      "outputs": [
+        "xhs_title.txt",
+        "xhs_content.txt"
+      ],
+      "auto_decision_rules": [
+        "标题采用'问题+解决方案'格式",
+        "正文步骤不超过5步，每步简明扼要"
+      ]
+    },
+    {
+      "step": 4,
+      "name": "教学素材准备",
+      "description": "准备教程所需的截图、示意图",
+      "actions": [
+        "生成/截取步骤演示图",
+        "制作对比效果图（操作前 vs 操作后）",
+        "准备关键界面标注图",
+        "制作流程图或思维导图"
+      ],
+      "outputs": [
+        "p1-问题展示.png",
+        "p2-步骤1.png",
+        "p3-步骤2.png",
+        "p4-效果对比.png"
+      ],
+      "auto_decision_rules": [
+        "根据教程类型选择图片风格（软件界面/手绘示意/实拍）",
+        "关键步骤必须配图说明"
+      ]
+    },
+    {
+      "step": 5,
+      "name": "格式优化与验证",
+      "description": "优化教程格式，确保易学性",
+      "actions": [
+        "验证标题UTF-16长度≤20单位",
+        "验证正文字符数≤1000字符",
+        "添加相关标签（教程类型、软件名称、技能领域）",
+        "优化步骤编号和格式"
+      ],
+      "outputs": [
+        "xhs_title_final.txt",
+        "xhs_content_short.txt",
+        "tags.txt"
+      ],
+      "auto_decision_rules": [
+        "标签包含教程领域、适用场景、难度级别",
+        "正文重点突出核心步骤和关键技巧"
+      ]
+    },
+    {
+      "step": 6,
+      "name": "发布执行",
+      "description": "执行教程内容发布",
+      "actions": [
+        "检查登录状态，必要时扫码登录",
+        "上传教学图片（4张标准结构）",
+        "填写标题和正文",
+        "添加标签，点击发布"
+      ],
+      "outputs": [
+        "发布状态",
+        "发布时间",
+        "内容摘要"
+      ],
+      "auto_decision_rules": [
+        "发布失败时自动重试3次",
+        "如持续失败，保存为草稿"
+      ]
+    },
+    {
+      "step": 7,
+      "name": "结果归档",
+      "description": "整理教程资料归档",
+      "actions": [
+        "整理教程大纲、步骤分解、最终内容",
+        "归档教学素材和中间文件",
+        "生成教程摘要报告",
+        "记录教学要点和扩展学习建议"
+      ],
+      "outputs": [
+        "完整的教程项目目录",
+        "可复用的教学模板",
+        "流程执行报告.md"
+      ],
+      "auto_decision_rules": [
+        "自动创建时间戳命名的归档目录",
+        "保留所有原始素材用于后续更新"
+      ]
+    }
+  ],
+  
+  "configuration": {
+    "title_max_length": 20,
+    "content_max_length": 1000,
+    "image_count": 4,
+    "tag_count": 5,
+    "max_retries": 3,
+    "retry_delay_seconds": 2,
+    "timeout_seconds": 120,
+    "auto_generate_images": true,
+    "auto_optimize_content": true,
+    "auto_handle_errors": true
+  },
+  
+  "content_framework": {
+    "structure": [
+      "问题引入（用户遇到的困难）",
+      "解决方案概述（本教程能帮到什么）",
+      "步骤详解（分步教学，配图说明）",
+      "效果展示（操作前后的对比）",
+      "注意事项和常见问题"
+    ],
+    "style_guide": {
+      "tone": "耐心细致、鼓励学习、实用导向",
+      "paragraph_length": "2-4行为一段",
+      "emoji_usage": "使用步骤编号emoji（1️⃣ 2️⃣ 3️⃣）",
+      "formatting": "使用👉 ✨ ⚠️等标记突出重点和提示"
+    },
+    "target_audience": [
+      "新手学习者",
+      "技能提升者",
+      "问题解决者",
+      "效率追求者"
+    ]
+  },
+  
+  "tutorial_categories": {
+    "软件教程": ["Photoshop", "Excel", "Python", "剪映", "Notion"],
+    "生活技巧": ["收纳整理", "烹饪技巧", "健身方法", "时间管理"],
+    "学习技能": ["语言学习", "考试技巧", "阅读方法", "记忆技巧"],
+    "职场技能": ["PPT制作", "沟通技巧", "项目管理", "数据分析"]
+  },
+  
+  "teaching_principles": {
+    "从简到难": "从基础概念开始，逐步深入",
+    "示例驱动": "每个知识点配具体示例",
+    "练习巩固": "提供练习环节巩固学习",
+    "问题导向": "围绕实际问题展开教学"
+  },
+  
+  "error_handling": {
+    "auto_fix": true,
+    "auto_retry": true,
+    "save_draft_on_failure": true,
+    "retry_strategies": {
+      "content_too_long": "简化理论说明，保留核心步骤",
+      "title_too_long": "保留核心问题，简化修饰词",
+      "image_generation_failed": "使用文字说明替代复杂配图"
+    }
+  },
+  
+  "performance_targets": {
+    "success_rate": "≥95%",
+    "average_execution_time": "15分钟",
+    "content_compliance_rate": "100%"
+  },
+  
+  "tags": ["教程", "教学", "步骤", "技巧", "学习", "实用"],
+  
+  "related_templates": ["ai_hot_topic", "product_review", "lifestyle_tips"],
+  
+  "notes": "本模板适用于各类教学类内容，核心原则是步骤清晰、易于跟随，让用户能够真正学会技能。"
+}

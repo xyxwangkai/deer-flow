@@ -1,0 +1,67 @@
+{
+  "title_max_length": 20,
+  "content_max_length": 1000,
+  "image_count": 4,
+  "tag_count": 5,
+  "max_retries": 3,
+  "retry_delay_seconds": 2,
+  "timeout_seconds": 120,
+  "auto_generate_images": true,
+  "auto_optimize_content": true,
+  "auto_handle_errors": true,
+  "save_intermediate_files": true,
+  
+  "content_optimization": {
+    "max_paragraph_length": 5,
+    "emoji_per_paragraph": 2,
+    "min_paragraphs": 3,
+    "max_paragraphs": 8,
+    "preferred_sentence_length": 15
+  },
+  
+  "image_generation": {
+    "model": "qwen-image-2.0",
+    "quality": "2k",
+    "style": "小红书信息图风格",
+    "layout": "自动选择",
+    "watermark": false,
+    "retry_on_failure": true,
+    "max_image_retries": 3
+  },
+  
+  "publish_settings": {
+    "auto_login": true,
+    "headless_preferred": true,
+    "save_draft_on_failure": true,
+    "verify_content_before_publish": true,
+    "check_compliance": true
+  },
+  
+  "error_handling": {
+    "auto_retry": true,
+    "auto_fix_content": true,
+    "notify_on_critical": false,
+    "log_level": "INFO",
+    "save_error_logs": true
+  },
+  
+  "archive_settings": {
+    "create_timestamp_dir": true,
+    "keep_intermediate_files": true,
+    "generate_readme": true,
+    "generate_report": true,
+    "archive_path": "/mnt/user-data/outputs"
+  },
+  
+  "workflow_templates": {
+    "default_template": "ai_hot_topic",
+    "templates_path": "/mnt/skills/public/xiaohongshu-skills/templates",
+    "auto_load_template": true
+  },
+  
+  "performance": {
+    "concurrent_operations": 1,
+    "max_execution_time_minutes": 30,
+    "memory_limit_mb": 1024
+  }
+}

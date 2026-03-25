@@ -1,0 +1,216 @@
+{
+  "id": "product_review",
+  "name": "产品评测标准化发布流程",
+  "description": "用于发布消费电子、美妆、家居等产品评测的小红书内容",
+  "version": "1.0",
+  "created_date": "2026-03-12",
+  "last_updated": "2026-03-12",
+  "author": "DeerFlow 2.0",
+  "status": "ready",
+  
+  "workflow_steps": [
+    {
+      "step": 1,
+      "name": "产品信息收集",
+      "description": "收集产品基本信息、核心卖点和用户痛点",
+      "actions": [
+        "收集产品名称、品牌、型号",
+        "分析产品核心卖点和差异化功能",
+        "调研目标用户群体和使用场景",
+        "收集竞品信息对比分析"
+      ],
+      "outputs": [
+        "产品信息表.json",
+        "竞品对比表.md"
+      ],
+      "auto_decision_rules": [
+        "如无明确产品信息，自动搜索相关评测",
+        "根据产品类型选择评测重点（性能 vs 外观 vs 性价比）"
+      ]
+    },
+    {
+      "step": 2,
+      "name": "评测大纲制定",
+      "description": "制定结构化的评测大纲",
+      "actions": [
+        "确定评测维度（开箱体验、外观设计、使用体验、优缺点总结）",
+        "设计对比测试方案",
+        "准备评测工具和环境",
+        "制定拍摄/展示计划"
+      ],
+      "outputs": [
+        "评测大纲.md",
+        "拍摄计划表.json"
+      ],
+      "auto_decision_rules": [
+        "根据产品类型自动调整评测维度权重",
+        "优先展示用户最关心的核心功能"
+      ]
+    },
+    {
+      "step": 3,
+      "name": "内容撰写",
+      "description": "撰写产品评测正文",
+      "actions": [
+        "撰写吸引人的标题（使用痛点+解决方案格式）",
+        "正文结构：痛点引入→产品介绍→核心体验→优缺点→购买建议",
+        "使用口语化表达，适当使用emoji",
+        "确保客观公正，优缺点都要提到"
+      ],
+      "outputs": [
+        "xhs_title.txt",
+        "xhs_content.txt"
+      ],
+      "auto_decision_rules": [
+        "标题采用'痛点+解决方案'格式",
+        "正文突出真实使用体验，避免过度营销"
+      ]
+    },
+    {
+      "step": 4,
+      "name": "图片/视频素材准备",
+      "description": "准备评测所需的视觉素材",
+      "actions": [
+        "拍摄/生成产品开箱图",
+        "展示产品细节和核心功能",
+        "对比图展示（与竞品对比）",
+        "使用场景图展示"
+      ],
+      "outputs": [
+        "p1-开箱图.png",
+        "p2-细节图.png",
+        "p3-对比图.png",
+        "p4-场景图.png"
+      ],
+      "auto_decision_rules": [
+        "根据产品类型选择图片风格（科技感/美妆感/家居感）",
+        "优先展示产品最吸引人的角度"
+      ]
+    },
+    {
+      "step": 5,
+      "name": "格式优化",
+      "description": "优化内容格式，符合小红书要求",
+      "actions": [
+        "验证标题UTF-16长度≤20单位",
+        "验证正文字符数≤1000字符",
+        "添加相关标签（产品类目、品牌、使用场景）",
+        "优化段落结构和emoji使用"
+      ],
+      "outputs": [
+        "xhs_title_final.txt",
+        "xhs_content_short.txt",
+        "tags.txt"
+      ],
+      "auto_decision_rules": [
+        "标签包含产品类目、品牌、核心功能",
+        "正文重点突出用户最关心的3个核心体验"
+      ]
+    },
+    {
+      "step": 6,
+      "name": "发布执行",
+      "description": "执行内容发布",
+      "actions": [
+        "检查登录状态，必要时扫码登录",
+        "上传评测图片（4张标准结构）",
+        "填写标题和正文",
+        "添加标签，点击发布"
+      ],
+      "outputs": [
+        "发布状态",
+        "发布时间",
+        "内容摘要"
+      ],
+      "auto_decision_rules": [
+        "发布失败时自动重试3次",
+        "如持续失败，保存为草稿"
+      ]
+    },
+    {
+      "step": 7,
+      "name": "结果归档",
+      "description": "整理评测资料归档",
+      "actions": [
+        "整理产品信息、评测大纲、最终内容",
+        "归档图片素材和中间文件",
+        "生成评测报告摘要",
+        "记录关键数据和用户反馈预期"
+      ],
+      "outputs": [
+        "完整的评测项目目录",
+        "可复用的评测模板",
+        "流程执行报告.md"
+      ],
+      "auto_decision_rules": [
+        "自动创建时间戳命名的归档目录",
+        "保留所有原始素材用于后续更新"
+      ]
+    }
+  ],
+  
+  "configuration": {
+    "title_max_length": 20,
+    "content_max_length": 1000,
+    "image_count": 4,
+    "tag_count": 5,
+    "max_retries": 3,
+    "retry_delay_seconds": 2,
+    "timeout_seconds": 120,
+    "auto_generate_images": true,
+    "auto_optimize_content": true,
+    "auto_handle_errors": true
+  },
+  
+  "content_framework": {
+    "structure": [
+      "痛点引入（用户遇到的问题）",
+      "产品介绍（解决方案是什么）",
+      "核心体验（真实使用感受）",
+      "优缺点总结（客观公正）",
+      "购买建议（适合谁/不适合谁）"
+    ],
+    "style_guide": {
+      "tone": "真实体验分享、客观公正、有参考价值",
+      "paragraph_length": "3-5行为一段",
+      "emoji_usage": "每段1-2个相关emoji",
+      "formatting": "使用✅ ❌ **加粗**等标记突出关键信息"
+    },
+    "target_audience": [
+      "潜在购买者",
+      "产品爱好者",
+      "品牌关注者",
+      "相关领域用户"
+    ]
+  },
+  
+  "product_categories": {
+    "消费电子": ["手机", "电脑", "耳机", "智能手表", "相机"],
+    "美妆护肤": ["护肤品", "化妆品", "美妆工具", "香水"],
+    "家居生活": ["小家电", "家居用品", "厨房电器", "收纳用品"],
+    "服饰鞋包": ["服装", "鞋子", "包包", "配饰"]
+  },
+  
+  "error_handling": {
+    "auto_fix": true,
+    "auto_retry": true,
+    "save_draft_on_failure": true,
+    "retry_strategies": {
+      "content_too_long": "精简次要体验描述",
+      "title_too_long": "保留核心卖点，简化修饰词",
+      "image_generation_failed": "使用产品官方图替代"
+    }
+  },
+  
+  "performance_targets": {
+    "success_rate": "≥95%",
+    "average_execution_time": "15分钟",
+    "content_compliance_rate": "100%"
+  },
+  
+  "tags": ["产品评测", "开箱", "使用体验", "购买建议", "优缺点", "真实分享"],
+  
+  "related_templates": ["ai_hot_topic", "tutorial_guide", "lifestyle_tips"],
+  
+  "notes": "本模板适用于各类产品评测，核心原则是真实体验分享和客观公正，为用户提供有价值的购买参考。"
+}
