@@ -35,6 +35,9 @@ help:
 	@echo "  make docker-logs-frontend - View Docker frontend logs"
 	@echo "  make docker-logs-gateway - View Docker gateway logs"
 
+config_cp:
+	sh ./scripts/config_copy.sh
+
 config:
 	@$(PYTHON) ./scripts/configure.py
 
