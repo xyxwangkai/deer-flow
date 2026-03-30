@@ -1,6 +1,0 @@
-{
-  "chrome_profile_path": "/path/to/your/chrome/profile",
-  "headless": false,
-  "timeout": 30,
-  "wait_time": 2
-}

@@ -1,6 +1,0 @@
-{
-  "chrome_profile_path": "/opt/tiger/deer-flow-v2/backend/.deer-flow/threads/7a52bff4-e468-411a-b9b8-2d6f245ff65f/user-data/workspace/chrome_profile",
-  "headless": false,
-  "timeout": 60,
-  "wait_time": 5
-}

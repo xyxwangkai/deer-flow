@@ -55,4 +55,4 @@ web/
 backend/Dockerfile.langgraph
 config.yaml.bak
 
-skills/custom
+skills/*

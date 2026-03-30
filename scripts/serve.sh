@@ -28,7 +28,7 @@ for arg in "$@"; do
 done
 
 if $DEV_MODE; then
-    FRONTEND_CMD="pnpm run dev"
+    FRONTEND_CMD="pnpm run dev --port 3000"
 else
     FRONTEND_CMD="env BETTER_AUTH_SECRET=$(python3 -c 'import secrets; print(secrets.token_hex(16))') pnpm run preview"
 fi

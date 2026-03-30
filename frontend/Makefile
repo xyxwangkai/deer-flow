@@ -5,7 +5,7 @@ build:
 	pnpm build
 
 dev:
-	pnpm dev
+	pnpm dev --port 3000
 
 lint:
 	pnpm lint
