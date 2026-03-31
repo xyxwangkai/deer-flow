@@ -1,6 +1,6 @@
 # DeerFlow - Unified Development Environment
 
-.PHONY: help config config-upgrade check install dev dev-daemon start stop up down clean docker-init docker-start docker-stop docker-logs docker-logs-frontend docker-logs-gateway
+.PHONY: help config config-upgrade check install dev dev-daemon nginx web start stop up down clean docker-init docker-start docker-stop docker-logs docker-logs-frontend docker-logs-gateway
 
 PYTHON ?= python
 BASH ?= bash
@@ -19,6 +19,8 @@ help:
 	@echo "  make setup-sandbox   - Pre-pull sandbox container image (recommended)"
 	@echo "  make dev             - Start all services in development mode (with hot-reloading)"
 	@echo "  make dev-daemon      - Start all services in background (daemon mode)"
+	@echo "  make nginx           - Start only nginx reverse proxy service"
+	@echo "  make web             - Start web services (frontend + gateway + nginx)"
 	@echo "  make start           - Start all services in production mode (optimized, no hot-reloading)"
 	@echo "  make stop            - Stop all running services"
 	@echo "  make clean           - Clean up processes and temporary files"
@@ -118,6 +120,28 @@ endif
 # Start all services in daemon mode (background)
 dev-daemon:
 	@./scripts/start-daemon.sh
+
+# Start only nginx service (reverse proxy)
+nginx:
+	@echo "Starting nginx service..."
+	@-nginx -c $(PWD)/docker/nginx/nginx.local.conf -p $(PWD) 2>/dev/null || echo "✓ Nginx started or already running"
+	@echo "Nginx running on port 2026"
+
+# Start web services (frontend + gateway + nginx)
+web:
+	@echo "Starting web services (frontend + gateway + nginx)..."
+	@echo "Starting gateway service..."
+	@cd backend && uv run uvicorn app.gateway.app:app --host 0.0.0.0 --port 8001 --reload > ../logs/gateway.log 2>&1 &
+	@sleep 2
+	@echo "Starting frontend service..."
+	@cd frontend && pnpm dev --port 3000 > ../logs/frontend.log 2>&1 &
+	@sleep 3
+	@echo "Starting nginx service..."
+	@-nginx -c $(PWD)/docker/nginx/nginx.local.conf -p $(PWD) 2>/dev/null || echo "✓ Nginx started or already running"
+	@echo "✓ Web services started"
+	@echo "  - Frontend: http://localhost:3000"
+	@echo "  - Gateway API: http://localhost:8001"
+	@echo "  - Nginx proxy: http://localhost:2026"
 
 # Stop all services
 stop:

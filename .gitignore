@@ -53,3 +53,4 @@ web/
 
 # Deployment artifacts
 backend/Dockerfile.langgraph
+.playwright-cli

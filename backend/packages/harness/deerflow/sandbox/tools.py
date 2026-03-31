@@ -322,6 +322,12 @@ def _resolve_and_validate_user_data_path(path: str, thread_data: ThreadDataState
     _validate_resolved_user_data_path(resolved, thread_data)
     return str(resolved)
 
+# 在文件顶部添加URL检测函数
+_URL_PATTERN = re.compile(r"^/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}")
+
+def _is_url_path(path: str) -> bool:
+    """检查路径是否为URL路径（包含域名的路径）"""
+    return bool(_URL_PATTERN.match(path))
 
 def validate_local_bash_command_paths(command: str, thread_data: ThreadDataState | None) -> None:
     """Validate absolute paths in local-sandbox bash commands.
@@ -337,6 +343,10 @@ def validate_local_bash_command_paths(command: str, thread_data: ThreadDataState
     unsafe_paths: list[str] = []
 
     for absolute_path in _ABSOLUTE_PATH_PATTERN.findall(command):
+        # 允许URL路径通过
+        if _is_url_path(absolute_path):
+            continue
+        
         if absolute_path == VIRTUAL_PATH_PREFIX or absolute_path.startswith(f"{VIRTUAL_PATH_PREFIX}/"):
             _reject_path_traversal(absolute_path)
             continue
