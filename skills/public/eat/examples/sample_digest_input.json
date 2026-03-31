@@ -1,0 +1,31 @@
+{
+  "source_type": "repo",
+  "title": "Example Agent Skill Repo",
+  "summary": "A repo that demonstrates how to package prompt workflow, scripts, and references into reusable agent skills.",
+  "score": {
+    "reusability": 5,
+    "stability": 4,
+    "verifiability": 4,
+    "implementability": 5,
+    "leverage": 5
+  },
+  "principles": [
+    "Separate trigger description from detailed execution guide.",
+    "Keep scripts under a dedicated scripts/ directory.",
+    "Use references/ for background material instead of bloating SKILL.md."
+  ],
+  "patterns": [
+    "Progressive loading of referenced resources",
+    "Structured output with explicit next actions"
+  ],
+  "assets": {
+    "skills": ["eat"],
+    "references": ["references/absorption-template.md"],
+    "scripts": ["scripts/knowledge_digest.py"],
+    "examples": ["examples/repo_absorb_example.md"]
+  },
+  "next_actions": [
+    "Generate a new skill skeleton from the absorbed pattern.",
+    "Merge progressive-loading guidance into an existing skill."
+  ]
+}
