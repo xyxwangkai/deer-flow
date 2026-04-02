@@ -1,0 +1,40 @@
+{
+  "skill_name": "eval-get-result",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我查看评估实例 97q4nos0jp69aea68c 的结果，这个 exercise_sid 是 592g8fc3rv69ae2c7c",
+      "expected_output": "Agent should run `merlin-cli exercise get-result --json '{\"sid\": \"97q4nos0jp69aea68c\"}'` and present the metrics (avg_accuracy, invalid_rate, etc.) in a readable format with values rounded to 4 decimal places. Should also provide the Seed platform URL.",
+      "assertions": [
+        "uses merlin-cli exercise get-result command",
+        "passes sid in JSON parameter",
+        "presents metrics with formatted values",
+        "provides Seed platform exercise URL"
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "获取 exercise version hsjyuewykqaftfxmeb 的最新评估结果",
+      "expected_output": "Agent should run `merlin-cli exercise get-result --json '{\"exercise_version_sid\": \"hsjyuewykqaftfxmeb\", \"latest\": true}'` to get the latest DONE result for that version.",
+      "assertions": [
+        "uses exercise_version_sid with latest: true",
+        "does not require user to provide instance SID",
+        "presents metrics from the response"
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "我想导出评估实例 97q4nos0jp69aea68c 的 case 级别明细数据到本地",
+      "expected_output": "Agent should inform the user that `merlin-cli exercise export-result` is not yet available (FlightSQL not implemented), and suggest alternatives: seed-cli or arena-evaluation-task-fetch skill.",
+      "assertions": [
+        "correctly identifies that export-result is not available in merlin-cli",
+        "suggests seed-cli as alternative",
+        "mentions arena-evaluation-task-fetch skill as another option",
+        "does NOT attempt to run merlin-cli exercise export-result"
+      ],
+      "files": []
+    }
+  ]
+}

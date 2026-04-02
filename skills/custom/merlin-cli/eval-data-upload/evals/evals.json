@@ -1,0 +1,54 @@
+{
+  "skill_name": "eval-data-upload",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我有一份 parquet 评估数据在 HDFS 上，路径是 hdfs://haruna/home/byte_data_seed/eval/mmlu_dev，帮我上传到 Seed 的 my_project 库 mmlu_dev 表，作为评估集",
+      "expected_output": "生成 merlin-cli data upload 命令，包含 database_name=my_project、table_name=mmlu_dev、hdfs_path 使用用户给的完整路径、write_mode=create（首次）、datacard_dataset_type=eval、wait=true，并在完成后给出 DataCard URL",
+      "assertions": [
+        {
+          "text": "命令包含 merlin-cli data upload",
+          "type": "contains"
+        },
+        {
+          "text": "datacard_dataset_type 设为 eval",
+          "type": "semantic"
+        },
+        {
+          "text": "给出了 DataCard URL 或说明如何查看结果",
+          "type": "semantic"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "之前已经用 create 模式上传过 test 库的 benchmark_v2 表了，现在数据有更新，我想用新的 parquet 替换掉旧数据。HDFS 路径是 hdfs://haruna/home/byte_data_seed/benchmark/v2_updated",
+      "expected_output": "使用 write_mode=overwrite 而非 create，并解释 overwrite 会清空旧数据重写；或者建议用 append 追加，视用户需求而定",
+      "assertions": [
+        {
+          "text": "不使用 write_mode=create",
+          "type": "semantic"
+        },
+        {
+          "text": "使用 overwrite 或 append 并解释区别",
+          "type": "semantic"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "我本地有个 csv 文件 /home/tiger/data/eval_set.csv，想注册到 Seed 作为评估集，库名 experiment，表名 eval_set_v1",
+      "expected_output": "先提示用户将本地文件上传到 HDFS（hdfs dfs -put），然后再用 merlin-cli data upload 上传到 DataCard，hdfs_file_format 设为 csv",
+      "assertions": [
+        {
+          "text": "提示先用 hdfs dfs -put 上传到 HDFS",
+          "type": "semantic"
+        },
+        {
+          "text": "merlin-cli data upload 中 hdfs_file_format 设为 csv",
+          "type": "semantic"
+        }
+      ]
+    }
+  ]
+}

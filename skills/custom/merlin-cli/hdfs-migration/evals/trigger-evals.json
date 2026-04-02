@@ -1,0 +1,82 @@
+[
+  {
+    "query": "帮我把 hdfs://haruna/user/alice/ckpt/20260326 同步到 dallas 机房，目标先放到 /backup/alice/ckpt/20260326，麻烦直接帮我发起。",
+    "should_trigger": true
+  },
+  {
+    "query": "我想看下 task-348219 这个跨洋同步现在跑到哪了，顺便告诉我是不是失败了。",
+    "should_trigger": true
+  },
+  {
+    "query": "把这两个 HDFS 传输任务停掉：task-123 和 task-456，都是我自己昨天提的。",
+    "should_trigger": true
+  },
+  {
+    "query": "今天凌晨失败的那批跨地域同步帮我筛出来，我只想重试我自己创建的任务。",
+    "should_trigger": true
+  },
+  {
+    "query": "看下 task-789 的传输子任务详情，我要目标路径、失败原因，还有对应的 Tiansuan 和 Zeus 任务 ID。",
+    "should_trigger": true
+  },
+  {
+    "query": "有一批训练数据要从一个机房回传到国内 HDFS，源路径我等会儿给你，你先告诉我需要哪些信息。",
+    "should_trigger": true
+  },
+  {
+    "query": "列一下我上周在 HDFS 上发起的跨洋传输任务，重点看 RUNNING 和 FAILED，默认分页先 20 条。",
+    "should_trigger": true
+  },
+  {
+    "query": "这个同步一直卡着，task_id 是 task-9988，先帮我看看状态，不行的话我再决定要不要停。",
+    "should_trigger": true
+  },
+  {
+    "query": "把 hdfs://haruna/team_x/eval_set_v4 复制一份到海外机房对应目录里，需要保留原路径结构，先帮我判断该走哪个 HDFS 迁移流程。",
+    "should_trigger": true
+  },
+  {
+    "query": "我只有一个 zeus 任务 ID，想知道它对应的是哪条 HDFS 跨地域传输，以及现在进度怎么样。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我把本地 ~/Downloads/train.jsonl 上传到 HDFS 的 /user/alice/train.jsonl。",
+    "should_trigger": false
+  },
+  {
+    "query": "我想把 hdfs://haruna/user/alice/eval.parquet 注册成 DataCard 表，然后创建一个 exercise。",
+    "should_trigger": false
+  },
+  {
+    "query": "最近大家老提跨洋同步，我想先了解下它背后的原理和常见方案，不是要查具体任务也不是要发起迁移。",
+    "should_trigger": false
+  },
+  {
+    "query": "帮我看下这个训练任务为什么挂了，日志里全是 NCCL timeout。",
+    "should_trigger": false
+  },
+  {
+    "query": "我想把 merlin 的评估结果导出来做 case 分析，不是迁移数据，就是想看 metrics 和明细。",
+    "should_trigger": false
+  },
+  {
+    "query": "帮我启动一个新的 devbox，我要在上面自己写脚本同步数据，不打算走现成的 HDFS 传输任务。",
+    "should_trigger": false
+  },
+  {
+    "query": "我有个 Bernard 服务想查下线上配置，最近回传链路是不是配错了。",
+    "should_trigger": false
+  },
+  {
+    "query": "想把一个 collection 里的几个 exercise version 重新组合一下，不涉及 HDFS 传输任务。",
+    "should_trigger": false
+  },
+  {
+    "query": "看下 hdfs://haruna/user/alice/raw_data 这个目录有多大、最近谁改过；我现在不是要做跨地域传输，只是查目录信息。",
+    "should_trigger": false
+  },
+  {
+    "query": "帮我在远端机器上执行 distcp 脚本，把对象存储的数据拉到 HDFS，不走现成的 Merlin 传输任务。",
+    "should_trigger": false
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "skill_name": "eval-collection-create",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我把 exercise abc123 的版本 ver456 和 exercise def789 的版本 ver012 组合成一个 collection，名字叫 reasoning_suite",
+      "expected_output": "Agent should ask the user which metrics to include for each exercise (since metrics are required). If user doesn't know, agent should suggest running `merlin-cli exercise get-result` first to discover available metric names. Then use `merlin-cli collection create-from-exercises` with the collected parameters.",
+      "assertions": [
+        "asks user for metrics or suggests using get-result to find them",
+        "uses merlin-cli collection create-from-exercises command",
+        "includes both exercises in the items array",
+        "provides Collection URL after creation"
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "我有一个 exercise version hsjyuewykqaftfxmeb，它的指标有 avg_accuracy 和 invalid_rate，帮我创建一个 collection 包含这个 exercise",
+      "expected_output": "Agent should use `merlin-cli collection create-from-exercises` with the provided exercise_version_sid and metrics. Should ask for exercise_sid if not provided, and suggest a collection name or ask the user.",
+      "assertions": [
+        "uses the provided metrics (avg_accuracy, invalid_rate)",
+        "asks for missing exercise_sid",
+        "uses create-from-exercises one-step command",
+        "does not guess metrics"
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "我想创建 collection 但不确定我的 exercise 有哪些 metrics 可以用",
+      "expected_output": "Agent should guide the user to first run `merlin-cli exercise get-result` with their exercise_version_sid to discover available metric names, then proceed with collection creation.",
+      "assertions": [
+        "suggests using eval-get-result or merlin-cli exercise get-result",
+        "explains that metrics field must match actual metric_name values",
+        "does not make up metric names"
+      ],
+      "files": []
+    }
+  ]
+}

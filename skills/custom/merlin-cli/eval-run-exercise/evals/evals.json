@@ -1,0 +1,35 @@
+[
+  {
+    "id": "basic-hdfs-checkpoint-run",
+    "prompt": "帮我在 exercise a2i5tlr3eb69ad3b39 的版本 rwibhoxaymaftftzaa 上跑评估，模型 checkpoint 在 hdfs://haruna/home/byte_data_seed/user/test/checkpoints/step_5000，名字叫 step-5000",
+    "assertions": [
+      {"type": "semantic", "value": "使用 merlin-cli exercise run 命令"},
+      {"type": "semantic", "value": "exercise_sid 为 a2i5tlr3eb69ad3b39"},
+      {"type": "semantic", "value": "exercise_version_sid 为 rwibhoxaymaftftzaa"},
+      {"type": "semantic", "value": "hdfs_config_items 包含指定的 hdfs_path 和 display_name"},
+      {"type": "semantic", "value": "没有自行填写 resource 配置（使用默认公共资源）"},
+      {"type": "semantic", "value": "向用户展示返回的 instance.sid 和状态"}
+    ]
+  },
+  {
+    "id": "advanced-run-with-resource",
+    "prompt": "在 exercise abc123 版本 def456 上运行评估，用 GREEDY 模式，只跑 100 条样本做调试。资源用 group_id 526, cluster_id 5934",
+    "assertions": [
+      {"type": "semantic", "value": "使用 merlin-cli exercise run 命令"},
+      {"type": "semantic", "value": "evaluation_task_conf 包含 param_mode: GREEDY"},
+      {"type": "semantic", "value": "evaluation_task_conf 包含 max_samples: 100"},
+      {"type": "semantic", "value": "evaluation_task_conf.resource 包含用户指定的 group_id 和 cluster_id"},
+      {"type": "semantic", "value": "因为用户明确给出了资源信息，所以直接使用而非再次确认"}
+    ]
+  },
+  {
+    "id": "query-runs-and-result",
+    "prompt": "帮我看下 exercise a2i5tlr3eb69ad3b39 最近的评估运行情况，以及最新一次完成的评估结果",
+    "assertions": [
+      {"type": "semantic", "value": "使用 merlin-cli exercise list-runs 查看运行列表"},
+      {"type": "semantic", "value": "exercise_sid 为 a2i5tlr3eb69ad3b39"},
+      {"type": "semantic", "value": "使用 merlin-cli exercise get-result 获取评估结果"},
+      {"type": "semantic", "value": "向用户展示评估指标（metrics）和状态"}
+    ]
+  }
+]

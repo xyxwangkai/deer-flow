@@ -1,0 +1,13 @@
+{
+  "message_id": "hb-REPLACE_TIMESTAMP",
+  "service_name": "deploy-and-test",
+  "Base": {
+    "LogID": "",
+    "Caller": "deerflow",
+    "Addr": "",
+    "Client": "deerflow",
+    "TrafficEnv": {
+      "Env": "ppe_duoshan_hamlet"
+    }
+  }
+}

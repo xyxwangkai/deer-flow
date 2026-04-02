@@ -1,0 +1,66 @@
+{
+  "skill_name": "eval-exercise-create",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我把 test 库的 mmlu_dev 表创建为一个评估 Exercise，名字就叫 mmlu_dev_exercise",
+      "expected_output": "生成两步命令：先 merlin-cli exercise create 创建 Exercise，再用返回的 exercise.sid 调用 merlin-cli exercise create-version 关联 warehouse_db=test、warehouse_table=mmlu_dev，最后给出 Exercise URL",
+      "assertions": [
+        {
+          "text": "包含 merlin-cli exercise create 命令",
+          "type": "contains"
+        },
+        {
+          "text": "包含 merlin-cli exercise create-version 命令",
+          "type": "contains"
+        },
+        {
+          "text": "create-version 中的 exercise_sid 引用了第一步返回的 sid",
+          "type": "semantic"
+        },
+        {
+          "text": "给出了 Exercise URL 或说明如何查看",
+          "type": "semantic"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "我已经有一个 exercise，SID 是 abc123def456，现在想给它加一个新版本，关联 prod 库的 hellaswag_v2 表",
+      "expected_output": "只生成 merlin-cli exercise create-version 命令（不需要 exercise create），exercise_sid 使用用户给的 abc123def456，warehouse_db=prod，warehouse_table=hellaswag_v2",
+      "assertions": [
+        {
+          "text": "不包含 merlin-cli exercise create 命令（只需 create-version）",
+          "type": "semantic"
+        },
+        {
+          "text": "exercise_sid 使用了用户提供的 abc123def456",
+          "type": "semantic"
+        },
+        {
+          "text": "warehouse_db 和 warehouse_table 正确对应 prod 和 hellaswag_v2",
+          "type": "semantic"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "我刚用 eval-data-upload 上传了数据到 experiment 库的 arc_challenge 表，现在帮我接着创建 Exercise 吧，名字叫 arc_challenge_eval",
+      "expected_output": "串联两步命令，使用上传结果中的库表名（experiment / arc_challenge），不需要再次上传数据",
+      "assertions": [
+        {
+          "text": "使用 warehouse_db=experiment 和 warehouse_table=arc_challenge",
+          "type": "semantic"
+        },
+        {
+          "text": "不包含 data upload 命令（数据已上传）",
+          "type": "semantic"
+        },
+        {
+          "text": "完整生成 exercise create + create-version 两步",
+          "type": "semantic"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "skill_name": "hdfs-migration",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我把 hdfs://haruna/user/alice/checkpoints/2026-03-20 同步到 dallas 机房，先帮我发起一下。",
+      "expected_output": "Agent should recognize this as a create request, call out that target_path is missing, check the allowed migration config before proceeding, and ask the user to provide a full target_path under a supported prefix instead of guessing one.",
+      "assertions": [
+        "classifies the request as create rather than query or retry",
+        "does not guess target_path from target_dc alone",
+        "mentions checking merlin-cli batch get-data-migration-config before creation",
+        "asks the user for the full target_path under an allowed prefix"
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "查一下我昨天晚上到现在的跨洋同步任务，重点看 FAILED 和 RUNNING，源路径是 hdfs://haruna/user/alice/datasets/train_v3。",
+      "expected_output": "Agent should treat this as a query request, default creator to the current user, normalize the time window into an explicit range, include FAILED and RUNNING as uppercase status filters, and mention paginated listing with default limit 20 and max 100.",
+      "assertions": [
+        "classifies the request as query",
+        "uses creator as current user when the user does not specify another creator",
+        "uses explicit time range in YYYY-MM-DD HH:mm format",
+        "keeps statuses in uppercase enum values",
+        "mentions pagination defaults or uses limit 20 without exceeding 100"
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "把 task-123、task-456 这两个跨洋传输停掉。",
+      "expected_output": "Agent should treat this as a stop request, first query the tasks to verify they belong to the current user, show the candidate tasks in a Markdown table for confirmation, and only then use the batch stop command followed by a re-query for final status.",
+      "assertions": [
+        "classifies the request as stop",
+        "checks creator before stopping",
+        "shows a Markdown table for secondary confirmation",
+        "uses merlin-cli resource batch-stop-governance-instances with instance_ids",
+        "re-queries task status after submitting the stop request"
+      ],
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "看下 task-789 的传输子任务详情，特别是失败原因、目标路径，还有对应的 Tiansuan 和 Zeus 任务 ID。",
+      "expected_output": "Agent should first query the main task, then drill down into subtask details for the single task_id using the progress command, and present the result as a main task table followed by a subtask detail table.",
+      "assertions": [
+        "classifies the request as query with subtask drill-down",
+        "uses merlin-cli data get-governance-job-instance-progress for subtask details",
+        "requires a single task_id for the drill-down path",
+        "presents a main task table before the subtask detail table",
+        "includes failed_reason and Tiansuan or Zeus task ids when available"
+      ],
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "把今天失败的那两个跨洋同步重新跑一下，我只想重试我自己创建的任务。",
+      "expected_output": "Agent should treat this as a retry request, first identify the candidate failed tasks through query filters, ensure the tasks are created by the current user, show them in a Markdown table for confirmation, and then use the batch retry command followed by a re-query.",
+      "assertions": [
+        "classifies the request as retry",
+        "does not retry without first identifying the target task ids",
+        "checks creator and keeps only current-user tasks",
+        "shows a Markdown table for confirmation before retrying",
+        "uses merlin-cli resource batch-retry-governance-instances with instance_ids",
+        "re-queries task status after submitting the retry request"
+      ],
+      "files": []
+    }
+  ]
+}

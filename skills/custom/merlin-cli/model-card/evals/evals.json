@@ -1,0 +1,157 @@
+{
+  "skill_name": "model-card",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我查一下 gpt-4 这个模型的基本信息",
+      "expected_output": "使用 merlin-cli model get 命令查询模型基础信息",
+      "assertions": [
+        {
+          "text": "使用了 merlin-cli model get 命令",
+          "type": "contains"
+        },
+        {
+          "text": "传入了 model_card_name_or_sid 参数",
+          "type": "semantic"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "帮我用 SID qrpadva5216990840f 查一下这个模型的 owner 和类型",
+      "expected_output": "使用 merlin-cli model get 查询并展示 owners 和 model_type",
+      "assertions": [
+        {
+          "text": "使用了 merlin-cli model get 命令",
+          "type": "contains"
+        },
+        {
+          "text": "model_card_name_or_sid 使用了 qrpadva5216990840f",
+          "type": "semantic"
+        },
+        {
+          "text": "展示了 owners 和 model_type 信息",
+          "type": "semantic"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "帮我查一下这个模型的配置信息 https://seed.bytedance.net/model/modelcard/qrpadva5216990840f?tab=config_info",
+      "expected_output": "从 URL 中提取 model_sid 为 qrpadva5216990840f，执行 merlin-cli model get-config 命令查询完整配置并展示关键字段",
+      "assertions": [
+        {
+          "text": "使用了 merlin-cli model get-config 命令",
+          "type": "contains"
+        },
+        {
+          "text": "正确提取了 model_sid qrpadva5216990840f（从 URL 中解析）",
+          "type": "semantic"
+        },
+        {
+          "text": "展示了返回结果中的关键信息（如 name、model_type 等）",
+          "type": "semantic"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "我想看一下模型 qrpadva5216990840f 的评估配置，就是 model_evaluation_config 里面的 api_key 和 endpoint",
+      "expected_output": "使用 merlin-cli model get-config 并指定 field=model_evaluation_config 和 parse_eval_config=true，从返回的结构化对象中提取 api_key 和 endpoint 信息",
+      "assertions": [
+        {
+          "text": "使用了 merlin-cli model get-config 命令",
+          "type": "contains"
+        },
+        {
+          "text": "指定了 field 为 model_evaluation_config",
+          "type": "semantic"
+        },
+        {
+          "text": "设置了 parse_eval_config 为 true 以解析 JSON 字符串",
+          "type": "semantic"
+        },
+        {
+          "text": "从结果中提取并展示了 api_key 和 endpoint/url 信息",
+          "type": "semantic"
+        },
+        {
+          "text": "对 api_key 做了脱敏处理（如只显示部分字符加星号），而非直接展示完整值",
+          "type": "semantic"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "这个模型用的是什么推理地址？https://seed.bytedance.net/model/modelcard/qrpadva5216990840f",
+      "expected_output": "识别用户需要模型的推理 endpoint，使用 get-config 查询 model_evaluation_config，解析并展示 external_api.url 或 external_api.base_url",
+      "assertions": [
+        {
+          "text": "使用了 merlin-cli model get-config（而非 model get）",
+          "type": "semantic"
+        },
+        {
+          "text": "查询了 model_evaluation_config 字段",
+          "type": "semantic"
+        },
+        {
+          "text": "向用户展示了推理地址（url 或 base_url）",
+          "type": "semantic"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "帮我拉取模型 abc123def456789012 的完整配置，保存到 /tmp/model_config.json",
+      "expected_output": "使用 merlin-cli model get-config 查询完整配置，将 JSON 结果通过重定向或脚本保存到指定文件路径",
+      "assertions": [
+        {
+          "text": "使用了 merlin-cli model get-config 命令",
+          "type": "contains"
+        },
+        {
+          "text": "model_sid 使用了用户提供的 abc123def456789012",
+          "type": "semantic"
+        },
+        {
+          "text": "将输出保存到了 /tmp/model_config.json（通过重定向 > 或其他方式）",
+          "type": "semantic"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "帮我查一下这个模型的配置 https://example.com/random/page",
+      "expected_output": "识别出 URL 不是 ModelCard 页面格式，提示用户提供正确的 ModelCard URL 或直接提供 model_sid",
+      "assertions": [
+        {
+          "text": "识别出 URL 格式不是 ModelCard 页面或无法提取 model_sid",
+          "type": "semantic"
+        },
+        {
+          "text": "给出正确的 URL 格式示例或请用户直接提供 SID",
+          "type": "semantic"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "帮我看下模型 qrpadva5216990840f 的 api_key 是什么",
+      "expected_output": "使用 get-config 查询 model_evaluation_config 并解析，但在展示时对 api_key 进行脱敏处理，只显示前几位",
+      "assertions": [
+        {
+          "text": "使用了 merlin-cli model get-config 命令",
+          "type": "contains"
+        },
+        {
+          "text": "查询了 model_evaluation_config 字段",
+          "type": "semantic"
+        },
+        {
+          "text": "对 api_key 做了脱敏处理（如只显示部分字符加星号），而非直接展示完整值",
+          "type": "semantic"
+        }
+      ]
+    }
+  ]
+}
