@@ -17,6 +17,7 @@ create_symlink_if_not_exists() {
 create_symlink_if_not_exists "../project_env/deer-flow/config.yaml" "config.yaml"
 create_symlink_if_not_exists "../project_env/deer-flow/.env" ".env"
 create_symlink_if_not_exists "../../project_env/deer-flow/frontend/.env" "frontend/.env"
+create_symlink_if_not_exists "../project_env/deer-flow/extensions_config.json" "extensions_config.json"
 
 cp -r ../project_env/deer-flow/docker/nginx/nginx.local.conf docker/nginx/nginx.local.conf
 

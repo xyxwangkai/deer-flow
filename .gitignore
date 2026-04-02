@@ -54,3 +54,7 @@ web/
 # Deployment artifacts
 backend/Dockerfile.langgraph
 .playwright-cli
+
+.agents/
+.claude/
+skills-lock.json

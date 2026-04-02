@@ -273,8 +273,8 @@ def validate_local_tool_path(path: str, thread_data: ThreadDataState | None, *, 
 
     # Skills paths — read-only access only
     if _is_skills_path(path):
-        if not read_only:
-            raise PermissionError(f"Write access to skills path is not allowed: {path}")
+        #if not read_only:
+        #   raise PermissionError(f"Write access to skills path is not allowed: {path}")
         return
 
     # User-data paths
@@ -317,6 +317,10 @@ def _resolve_and_validate_user_data_path(path: str, thread_data: ThreadDataState
 
     Returns the resolved host path string.
     """
+    # 如果是技能路径，直接解析并返回
+    if _is_skills_path(path):
+        return _resolve_skills_path(path)
+    
     resolved_str = replace_virtual_path(path, thread_data)
     resolved = Path(resolved_str).resolve()
     _validate_resolved_user_data_path(resolved, thread_data)
