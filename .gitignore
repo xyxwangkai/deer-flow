@@ -61,3 +61,7 @@ config.yaml.bak
 .claude/
 skills-lock.json
 skills-lock.json
+/frontend/test-results/
+/frontend/playwright-report/
+.gstack/
+.worktrees
